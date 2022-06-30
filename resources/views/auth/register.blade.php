@@ -33,12 +33,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-              <a class="nav-link" href="{{route('login')}}">Login</a>
+              <a class="nav-link" href="{{route('showLogin')}}">Login</a>
             </li>
 
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('register')}}">Register</a>
+                <a class="nav-link" href="{{route('showRegister')}}">Register</a>
               </li>
 
 
@@ -56,53 +56,76 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <div class="card-header">
                         <h3 class="card-title">Register Now</h3>
                     </div>
-                    <!-- /.card-header -->
-                    <!-- form start -->
-
-
-                    <form method="POST" action="{{url('register')}}" class="form-horizontal">
+                    <form method="POST" action="{{url('register')}}"   class="form-horizontal"  enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
+                            @error('name')
+                                <p style="color: red">{{$message}}</p>
+                             @enderror
+
+                             <input type="hidden" name="role" value="admin">
                         <div class="form-group row">
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your Name">
                                 </div>
                             </div>
+                            @error('email')
+                            <p style="color: red">{{$message}}</p>
+                         @enderror
                             <div class="form-group row">
+
                                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                                 </div>
                             </div>
-
+                            @error('phone')
+                            <p style="color: red">{{$message}}</p>
+                         @enderror
                             <div class="form-group row">
+
                                 <label for="phone" class="col-sm-2 col-form-label">Phone</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="phone" class="form-control" id="phone" placeholder="phone">
                                 </div>
                             </div>
+                            @error('age')
+                            <p style="color: red">{{$message}}</p>
+                           @enderror
                             <div class="form-group row">
+
                                 <label for="age" class="col-sm-2 col-form-label">Age</label>
                                 <div class="col-sm-10">
                                     <input type="number" name="age" class="form-control" id="age" placeholder="age">
                                 </div>
                             </div>
+                            @error('password')
+                            <p style="color: red" >{{$message}}</p>
+                           @enderror
                             <div class="form-group row">
+
                                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
                                     <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                                 </div>
                             </div>
+                            @error('image')
+                            <p style="color: red">{{$message}}</p>
+                           @enderror
                             <div class="form-group">
 
                                 <label for="image">Image</label>
-                                <input type="file" class="form-control-file" id="image">
+                                <input name="image" type="file" class="form-control-file" id="image">
                               </div>
+                              @error('gender')
+                                <p style="color: red">{{$message}}</p>
+                               @enderror
                               <div class="form-group">
+
                                 <label >Gender</label>
                               <div class="form-check">
-                                <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male" checked>
+                                <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male">
                                 <label class="form-check-label" for="exampleRadios1">
                                     Male
                                 </label>

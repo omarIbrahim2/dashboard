@@ -22,7 +22,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
-  <!-- Navbar -->
+    <form action="{{url('logout')}}" method="post" id="logout_form" style="display: none;">
+        @csrf
+      </form>
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -32,7 +34,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
     </ul>
-
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a id="logout_link" class="nav-link btn  active" href="#"><h4>logout</h4></a>
+        </li>
+      </ul>
   </nav>
   <!-- /.navbar -->
 
@@ -155,7 +161,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src='{{asset("admin/js/bootstrap.bundle.js")}}'></script>
 <!-- AdminLTE App -->
 <script src='{{asset("admin/js/adminlte.js")}}'></script>
-
+<script >
+    $("#logout_link").click(function(e){
+      e.preventDefault()
+      $("#logout_form").submit();
+    })
+  </script>
 @yield('scripts')
 </body>
 </html>

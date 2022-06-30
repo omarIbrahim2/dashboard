@@ -32,12 +32,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <ul class="navbar-nav ml-auto">
 
             <li class="nav-item">
-              <a class="nav-link" href="{{route('login')}}">Login</a>
+              <a class="nav-link" href="{{route('showLogin')}}">Login</a>
             </li>
 
 
             <li class="nav-item">
-                <a class="nav-link" href="{{route('register')}}">Register</a>
+                <a class="nav-link" href="{{route('showRegister')}}">Register</a>
               </li>
 
 
@@ -56,16 +56,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- /.card-header -->
                     <!-- form start -->
 
-                    <form method="POST"  class="form-horizontal">
+                    <form method="POST" action="{{url('login')}}" class="form-horizontal">
 
                         @csrf
                         <div class="card-body">
+                            @if (Session::has('errors'))
+                              <p style="color: red">{{Session::get('errors')->first()}}</p>
+                            @endif
+                            @error('name')
+                            <p style="color: red">{{$message}}</p>
+                            @enderror
                             <div class="form-group row">
                                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                                 <div class="col-sm-10">
                                     <input name="email" type="email" class="form-control" id="email" placeholder="Email">
                                 </div>
                             </div>
+
+                            @error('email')
+                            <p style="color: red">{{$message}}</p>
+                            @enderror
                             <div class="form-group row">
                                 <label for="password" class="col-sm-2 col-form-label">Password</label>
                                 <div class="col-sm-10">
