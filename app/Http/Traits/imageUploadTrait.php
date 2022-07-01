@@ -13,7 +13,7 @@ trait imageUploadTrait{
 
         $imageName =$file->move(public_path($path),$name);
 
-        return $path.'/'.$imageName->getFilename();
+        return $imageName->getFilename();
 
 
     }

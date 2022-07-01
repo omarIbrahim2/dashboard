@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'age' => fake()->randomDigit,
             'gender' => 'female',
             'role' => 'user',
-            'image' =>  'uploads/users/'. $i.'.jpg',
+            'image' =>  'uploads/users/'. $i.'.png',
         ];
     }
 

@@ -64,7 +64,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                              @enderror
 
                              <input type="hidden" name="role" value="admin">
-                        <div class="form-group row">
+                           <div class="form-group row">
                                 <label for="name" class="col-sm-2 col-form-label">Name</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your Name">

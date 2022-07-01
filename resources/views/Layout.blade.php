@@ -46,9 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="img/logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Dashboard</span>
     </a>
 
     <!-- Sidebar -->
@@ -56,10 +54,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('admin')}}/img/user-profile.jpg" class="img-circle elevation-2" alt="User Image">
+          <img src="{{"uploads/users/".Auth::user()->image}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Admin user</a>
+          <p class="d-block">{{Auth::user()->name}}</p>
         </div>
       </div>
 
@@ -70,21 +68,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
             <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Sample Pages
-                <i class="right fas fa-angle-left"></i>
+                Users
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Page one</p>
-                </a>
-              </li>
-
-            </ul>
           </li>
         </ul>
       </nav>
@@ -92,25 +79,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.sidebar -->
   </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
-          </div><!-- /.col -->
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Starter Page</li>
-            </ol>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
   <!-- /.navbar -->
 
    <div class="content-wrapper">
@@ -140,18 +108,114 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
   </aside>
   <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-  </footer>
 </div>
 <!-- ./wrapper -->
+<div class="modal fade show" id="modal-xl-edit" style="display: none; padding-right: 16px;" aria-modal="true">
+    <div class="modal-dialog modal-xl-edit">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit User </h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="edit_user_form" method="POST"  class="form-horizontal">
+            @csrf
+            <div class="card-body">
+              @error('name')
+                  <p style="color: red">{{$message}}</p>
+               @enderror
+
+               <input type="hidden" name="role" value="user">
+               <input type="hidden" name="id" id="edit-form-id">
+          <div class="form-group row">
+                  <label for="name" class="col-sm-2 col-form-label">Name</label>
+                  <div class="col-sm-10">
+                      <input type="text" name="name" class="form-control" id="edit-form-name" placeholder="Enter Your Name">
+                  </div>
+              </div>
+              @error('email')
+              <p style="color: red">{{$message}}</p>
+           @enderror
+              <div class="form-group row">
+
+                  <label for="email" class="col-sm-2 col-form-label">Email</label>
+                  <div class="col-sm-10">
+                      <input type="email" name="email" class="form-control" id="edit-form-email" placeholder="Email">
+                  </div>
+              </div>
+              @error('phone')
+              <p style="color: red">{{$message}}</p>
+           @enderror
+              <div class="form-group row">
+
+                  <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+                  <div class="col-sm-10">
+                      <input type="text" name="phone" class="form-control" id="edit-form-phone" placeholder="phone">
+                  </div>
+              </div>
+              @error('age')
+              <p style="color: red">{{$message}}</p>
+             @enderror
+              <div class="form-group row">
+
+                  <label for="age" class="col-sm-2 col-form-label">Age</label>
+                  <div class="col-sm-10">
+                      <input type="number" name="age" class="form-control" id="edit-form-age" placeholder="age">
+                  </div>
+              </div>
+              @error('password')
+              <p style="color: red" >{{$message}}</p>
+             @enderror
+              <div class="form-group row">
+
+                  <label for="password" class="col-sm-2 col-form-label">Password</label>
+                  <div class="col-sm-10">
+                      <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                  </div>
+              </div>
+              @error('image')
+              <p style="color: red">{{$message}}</p>
+             @enderror
+              <div class="form-group">
+
+                  <label for="image">Image</label>
+                  <input name="image" type="file" class="form-control-file" id="image">
+                </div>
+                @error('gender')
+                  <p style="color: red">{{$message}}</p>
+                 @enderror
+                <div class="form-group">
+
+                  <label >Gender</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="exampleRadios1" value="male">
+                  <label class="form-check-label" for="exampleRadios1">
+                      Male
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" id="exampleRadios2" value="female">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Female
+                  </label>
+                </div>
+                </div>
+
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+              <button id="submit_btn_edit" class="btn btn-info">Register</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+
 
 <!-- REQUIRED SCRIPTS -->
 
@@ -161,6 +225,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src='{{asset("admin/js/bootstrap.bundle.js")}}'></script>
 <!-- AdminLTE App -->
 <script src='{{asset("admin/js/adminlte.js")}}'></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script >
     $("#logout_link").click(function(e){
       e.preventDefault()

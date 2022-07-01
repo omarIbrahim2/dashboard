@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\auth\AuthController;
 use App\Http\Controllers\Home\homeController;
+use App\Http\Controllers\Users\usersController;
 use Illuminate\Routing\RouteRegistrar;
 use Illuminate\Support\Facades\Route;
 
@@ -29,6 +30,9 @@ Route::post('login' , [AuthController::class , 'login']);
 
 Route::middleware(['auth'])->group(function(){
     Route::get('/dashboard' , [homeController::class , 'index']);
-    
+    Route::post('/dashboard/addUser' , [usersController::class , "store"]);
+    Route::post('/dashboard/deleteUser' , [usersController::class , "Delete"]);
+    Route::post('/dashboard/updateUser' , [usersController::class , "Update"]);
+
 });
 
