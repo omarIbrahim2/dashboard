@@ -110,6 +110,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+{{-- edit user modal --}}
 <div class="modal fade show" id="modal-xl-edit" style="display: none; padding-right: 16px;" aria-modal="true">
     <div class="modal-dialog modal-xl-edit">
       <div class="modal-content">
@@ -123,9 +124,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <form id="edit_user_form" method="POST"  class="form-horizontal">
             @csrf
             <div class="card-body">
-              @error('name')
-                  <p style="color: red">{{$message}}</p>
-               @enderror
+
+                  <p id="name-edit-error" style="color: red"></p>
+
 
                <input type="hidden" name="role" value="user">
                <input type="hidden" name="id" id="edit-form-id">
@@ -135,9 +136,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="text" name="name" class="form-control" id="edit-form-name" placeholder="Enter Your Name">
                   </div>
               </div>
-              @error('email')
-              <p style="color: red">{{$message}}</p>
-           @enderror
+
+              <p id="email-edit-error" style="color: red"></p>
+
               <div class="form-group row">
 
                   <label for="email" class="col-sm-2 col-form-label">Email</label>
@@ -145,9 +146,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="email" name="email" class="form-control" id="edit-form-email" placeholder="Email">
                   </div>
               </div>
-              @error('phone')
-              <p style="color: red">{{$message}}</p>
-           @enderror
+
+              <p id="phone-edit-error" style="color: red"></p>
+
               <div class="form-group row">
 
                   <label for="phone" class="col-sm-2 col-form-label">Phone</label>
@@ -155,9 +156,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="text" name="phone" class="form-control" id="edit-form-phone" placeholder="phone">
                   </div>
               </div>
-              @error('age')
-              <p style="color: red">{{$message}}</p>
-             @enderror
+
+              <p id="age-edit-error" style="color: red"></p>
+
               <div class="form-group row">
 
                   <label for="age" class="col-sm-2 col-form-label">Age</label>
@@ -165,9 +166,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="number" name="age" class="form-control" id="edit-form-age" placeholder="age">
                   </div>
               </div>
-              @error('password')
-              <p style="color: red" >{{$message}}</p>
-             @enderror
+
+              <p id="password-edit-error" style="color: red" ></p>
+
               <div class="form-group row">
 
                   <label for="password" class="col-sm-2 col-form-label">Password</label>
@@ -175,17 +176,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                   </div>
               </div>
-              @error('image')
-              <p style="color: red">{{$message}}</p>
-             @enderror
+
+              <p id="image-edit-error" style="color: red"></p>
+
               <div class="form-group">
 
                   <label for="image">Image</label>
                   <input name="image" type="file" class="form-control-file" id="image">
                 </div>
-                @error('gender')
-                  <p style="color: red">{{$message}}</p>
-                 @enderror
+
+                  <p id="gender-edit-error" style="color: red"></p>
+
                 <div class="form-group">
 
                   <label >Gender</label>
@@ -216,6 +217,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- /.modal-dialog -->
   </div>
 
+
+
+  {{-- /end user modal --}}
 
 <!-- REQUIRED SCRIPTS -->
 

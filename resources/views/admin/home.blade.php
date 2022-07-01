@@ -67,9 +67,9 @@
         <form id="add_user" method="POST"  class="form-horizontal" enctype="multipart/form-data">
           @csrf
           <div class="card-body">
-            @error('name')
-                <p style="color: red">{{$message}}</p>
-             @enderror
+
+                <p id="name-error" style="color: red"></p>
+
 
              <input type="hidden" name="role" value="user">
            <div class="form-group row">
@@ -78,9 +78,9 @@
                     <input type="text" name="name" class="form-control" id="name" placeholder="Enter Your Name">
                 </div>
             </div>
-            @error('email')
-            <p style="color: red">{{$message}}</p>
-         @enderror
+
+            <p id="email-error" style="color: red"></p>
+
             <div class="form-group row">
 
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
@@ -88,9 +88,9 @@
                     <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                 </div>
             </div>
-            @error('phone')
-            <p style="color: red">{{$message}}</p>
-         @enderror
+
+            <p id="phone-error" style="color: red"></p>
+
             <div class="form-group row">
 
                 <label for="phone" class="col-sm-2 col-form-label">Phone</label>
@@ -98,9 +98,9 @@
                     <input type="text" name="phone" class="form-control" id="phone" placeholder="phone">
                 </div>
             </div>
-            @error('age')
-            <p style="color: red">{{$message}}</p>
-           @enderror
+
+            <p id="age-error" style="color: red"></p>
+
             <div class="form-group row">
 
                 <label for="age" class="col-sm-2 col-form-label">Age</label>
@@ -108,9 +108,9 @@
                     <input type="number" name="age" class="form-control" id="age" placeholder="age">
                 </div>
             </div>
-            @error('password')
-            <p style="color: red" >{{$message}}</p>
-           @enderror
+
+            <p id="password-error" style="color: red" ></p>
+
             <div class="form-group row">
 
                 <label for="password" class="col-sm-2 col-form-label">Password</label>
@@ -118,17 +118,16 @@
                     <input type="password" name="password" class="form-control" id="password" placeholder="Password">
                 </div>
             </div>
-            @error('image')
-            <p style="color: red">{{$message}}</p>
-           @enderror
+
+            <p id="image-error" style="color: red"></p>
+
             <div class="form-group">
 
                 <label for="image">Image</label>
                 <input name="image" type="file" class="form-control-file" id="image">
               </div>
-              @error('gender')
-                <p style="color: red">{{$message}}</p>
-               @enderror
+
+                <p id="gender-error" style="color: red"></p>
               <div class="form-group">
 
                 <label >Gender</label>
@@ -172,7 +171,7 @@
 <script>
 
 
-
+   //method to grab data  of user to the edit form
   $(".edit-btn").click(function(){
     $("#modal-xl-edit").modal('toggle');
     let id = $(this).attr("data-id")
@@ -190,10 +189,18 @@
 
   })
 </script>
-<script>
+
+ <script>
+
+//insert user ajax method
 $('#submit_user').click(function(e){
     e.preventDefault();
     let formData = new FormData($('#add_user')[0]);
+
+    $("#name-error").text('');
+    $("#email-error").text('');
+    $("#phone-error").text('');
+    $("#age-error").text('');
     $.ajax({
         type:'POST',
         url:"{{url('dashboard/addUser')}}",
@@ -210,10 +217,18 @@ $('#submit_user').click(function(e){
               });
               $('#modal-xl').modal('toggle');
            }
+        },
+        error:function(reject){
+            let response = $.parseJSON(reject.responseText);
+
+            $.each(response.errors , function(key , val){
+                $("#" + key + "-error").text(val[0])
+            })
         }
     })
 })
 
+//delete ajax method
 $(".deleteUser").click(function(e){
     e.preventDefault();
    let userId = $(this).data("user");
@@ -242,10 +257,14 @@ $(".deleteUser").click(function(e){
 
 })
 
+// edit ajax method
 $("#submit_btn_edit").click(function(e){
     e.preventDefault();
     let formData = new FormData($('#edit_user_form')[0]);
-
+    $("#name-edit-error").text('');
+    $("#email-edit-error").text('');
+    $("#phone-edit-error").text('');
+    $("#age-edit-error").text('');
     $.ajax({
         type:'POST',
         url:"{{url('dashboard/updateUser')}}",
@@ -260,8 +279,15 @@ $("#submit_btn_edit").click(function(e){
                 icon:'success',
                 title:data.message,
               });
-              
+
            }
+        },
+        error:function(reject){
+            let response = $.parseJSON(reject.responseText);
+
+            $.each(response.errors , function(key , val){
+                $("#" + key + "-edit-error").text(val[0])
+            })
         }
     })
 })
